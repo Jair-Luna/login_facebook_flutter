@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.login_facebook_flutter">
+
+   <uses-permission android:name="android.permission.INTERNET" />
+
    <application
+        android:usesCleartextTraffic="true"
         android:label="login_facebook_flutter"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,5 +1,5 @@
-<resource>
+<resources>
   <string name="app_name">flutter-decibels</string>
   <string name="facebook_app_id">1624585927879761</string> 
   <string name="fb_login_protocol_scheme">fb1624585927879761</string>
-</resource>
+</resources>

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:login_facebook_flutter/google_sign_in.dart';
 import 'package:login_facebook_flutter/main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -12,6 +13,8 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  Map? _userData;
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -60,9 +63,10 @@ class _LoginWidgetState extends State<LoginWidget> {
             children: [
               ElevatedButton.icon(
                 onPressed: () {
-                  final provider =
-                      Provider.of<GoogleSigninProvider>(context, listen: false);
-                  provider.googleLogin();
+                  // final provider =
+                  //     Provider.of<GoogleSigninProvider>(context, listen: false);
+                  // provider.googleLogin();
+                  signInWithGoogle();
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
@@ -78,7 +82,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  facebookLogin();
+                },
                 icon: const FaIcon(FontAwesomeIcons.facebook),
                 label: const Text('Entra con Facebook'),
               ),
@@ -106,5 +112,38 @@ class _LoginWidgetState extends State<LoginWidget> {
     }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future<UserCredential> facebookLogin() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 }

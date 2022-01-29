@@ -38,6 +38,7 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   google_sign_in: ^5.2.3
   provider: ^6.0.2
+  flutter_facebook_auth: ^3.5.0
 
 dev_dependencies:
   flutter_test:

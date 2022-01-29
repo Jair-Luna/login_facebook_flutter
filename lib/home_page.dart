@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:provider/provider.dart';
 
 import 'google_sign_in.dart';
@@ -10,6 +12,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    String userText = '';
+
+    if (user.email != null) {
+      userText = user.email!;
+    } else if (user.displayName != null) {
+      userText = user.displayName!;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -26,15 +35,18 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 9),
             Text(
-              user.email!,
+              userText,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 40),
             ElevatedButton.icon(
-              onPressed: () {
-                final provider =
-                    Provider.of<GoogleSigninProvider>(context, listen: false);
-                provider.googleLogout();
+              onPressed: () async {
+                // final provider =
+                //     Provider.of<GoogleSigninProvider>(context, listen: false);
+                // provider.googleLogout();
+
+                await FacebookAuth.instance.logOut();
+                FirebaseAuth.instance.signOut();
               },
               icon: const Icon(Icons.arrow_back, size: 32),
               label: const Text('Salir', style: TextStyle(fontSize: 24)),

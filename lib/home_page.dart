@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'google_sign_in.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,7 +31,11 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             ElevatedButton.icon(
-              onPressed: () => FirebaseAuth.instance.signOut(),
+              onPressed: () {
+                final provider =
+                    Provider.of<GoogleSigninProvider>(context, listen: false);
+                provider.googleLogout();
+              },
               icon: const Icon(Icons.arrow_back, size: 32),
               label: const Text('Salir', style: TextStyle(fontSize: 24)),
               style: ElevatedButton.styleFrom(

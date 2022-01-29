@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:login_facebook_flutter/google_sign_in.dart';
 import 'package:login_facebook_flutter/main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginWidget extends StatefulWidget {
   @override
@@ -57,7 +59,11 @@ class _LoginWidgetState extends State<LoginWidget> {
           ButtonBar(
             children: [
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  final provider =
+                      Provider.of<GoogleSigninProvider>(context, listen: false);
+                  provider.googleLogin();
+                },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   onPrimary: Colors.black,

@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:login_facebook_flutter/main.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/material.dart';
 
 class LoginWidget extends StatefulWidget {
   @override
@@ -42,6 +44,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           const SizedBox(height: 20),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
+              primary: Colors.black54,
               minimumSize: const Size.fromHeight(50),
             ),
             icon: const Icon(Icons.lock_open, size: 32),
@@ -50,7 +53,31 @@ class _LoginWidgetState extends State<LoginWidget> {
               style: TextStyle(fontSize: 24),
             ),
             onPressed: signIn,
-          )
+          ),
+          ButtonBar(
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  onPrimary: Colors.black,
+                ),
+                icon: FaIcon(
+                  FontAwesomeIcons.google,
+                  color: Colors.red.shade400,
+                ),
+                label: Text(
+                  'Entra con Google',
+                  style: TextStyle(color: Colors.red.shade400),
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: const FaIcon(FontAwesomeIcons.facebook),
+                label: const Text('Entra con Facebook'),
+              ),
+            ],
+          ),
         ],
       ),
     );

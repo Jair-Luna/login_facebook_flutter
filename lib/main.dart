@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:login_facebook_flutter/google_sign_in.dart';
+import 'home.dart';
 import 'home_page.dart';
 import 'login_widget.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const MyHomePage(),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
@@ -48,7 +50,7 @@ class MyHomePage extends StatelessWidget {
         } else if (snapshot.hasError) {
           return const Center(child: Text('Algo ha ido mal!!'));
         } else if (snapshot.hasData) {
-          return const HomePage();
+          return Home();
         } else {
           return LoginWidget();
         }

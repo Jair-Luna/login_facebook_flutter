@@ -33,6 +33,8 @@ class _LoginWidgetState extends State<LoginWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 40),
+          Image.asset('assets/decibels.png'),
+          const SizedBox(height: 20),
           TextField(
             controller: _emailController,
             cursorColor: Colors.white,
